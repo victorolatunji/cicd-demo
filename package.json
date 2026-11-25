@@ -1,0 +1,10 @@
+{
+  "name": "cicd-codebuild-demo",
+  "version": "1.0.0",
+  "description": "INFT 3104 Assignment 2 - CodeBuild demo",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "node tests/app.test.js",
+    "start": "node src/app.js"
+  }
+}

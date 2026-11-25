@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo "INSTALL phase - Node version:" && node -v
+  pre_build:
+    commands:
+      - echo "PRE_BUILD phase - running unit tests"
+      - npm test
+  build:
+    commands:
+      - echo "BUILD phase - started on $(date)"
+      - npm start
+      - mkdir -p dist
+      - cp -r src package.json dist/
+      - echo "Build number $CODEBUILD_BUILD_NUMBER" > dist/build-info.txt
+  post_build:
+    commands:
+      - echo "POST_BUILD phase - build completed on $(date)"
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: dist
+  name: build-output
