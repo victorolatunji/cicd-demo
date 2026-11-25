@@ -1,0 +1,24 @@
+name: CI Build
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install (Node 20)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Pre-build - run tests
+        run: npm test
+      - name: Build
+        run: |
+          npm start
+          mkdir -p dist
+          cp -r src package.json dist/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: dist
